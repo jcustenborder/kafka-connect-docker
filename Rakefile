@@ -36,11 +36,4 @@ task :generate do
       f << "RUN curl -Ls #{download_url} | tar -xzC /\n"
     end
   end
-
-
-
-  # user = Octokit.user 'jcustenborder'
-  # public_repos = user[:public_repos]
-  #
-  # puts public_repos
 end
