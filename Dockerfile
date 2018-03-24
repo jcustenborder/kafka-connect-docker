@@ -21,5 +21,6 @@ RUN curl -Ls https://github.com/jcustenborder/kafka-connect-transform-archive/re
 RUN curl -Ls https://github.com/jcustenborder/kafka-connect-transform-cef/releases/download/0.1.0.7/kafka-connect-transform-cef-0.1.0.7.tar.gz | tar -xzC /
 RUN curl -Ls https://github.com/jcustenborder/kafka-connect-transform-common/releases/download/0.1.0.11/kafka-connect-transform-common-0.1.0.11.tar.gz | tar -xzC /
 RUN curl -Ls https://github.com/jcustenborder/kafka-connect-transform-maxmind/releases/download/0.1.0.5/kafka-connect-transform-maxmind-0.1.0.5.tar.gz | tar -xzC /
+RUN curl -Ls https://github.com/jcustenborder/kafka-connect-transform-xml/releases/download/0.1.0.1/kafka-connect-transform-xml-0.1.0.1.tar.gz | tar -xzC /
 RUN curl -Ls https://github.com/jcustenborder/kafka-connect-twitter/releases/download/0.2.25/kafka-connect-twitter-0.2.25.tar.gz | tar -xzC /
 RUN curl -Ls https://github.com/jcustenborder/kafka-connect-vertica/releases/download/0.2.0.3/kafka-connect-vertica-0.2.0.3.tar.gz | tar -xzC /
