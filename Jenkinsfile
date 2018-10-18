@@ -20,7 +20,7 @@ node {
 
         components.each {
             def plugin_resource_url = new URL(it['plugin_resource_url'])
-            def plugin_resource = new JsonSlurperClassic().parse(pluginsUrl)
+            def plugin_resource = new JsonSlurperClassic().parse(plugin_resource_url)
             def plugin_name = plugin_resource['name']
             def plugin_owner = plugin_resource['owner']['username']
             def plugin_version = plugin_resource['version']
