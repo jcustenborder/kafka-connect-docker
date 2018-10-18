@@ -22,5 +22,6 @@ node {
         components.each {
             sh "echo ${it['plugin_resource_url']}"
         }
+
     }
 }
