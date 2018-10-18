@@ -41,8 +41,10 @@ node {
         image = docker.build('jcustenborder/kafka-connect-all')
     }
 
-    stage('publish') {
-        image.push "${env.BUILD_NUMBER}"
-        image.push "latest"
+    if (env.BRANCH_NAME == 'master') {
+        stage('publish') {
+            image.push "${env.BUILD_NUMBER}"
+            image.push "latest"
+        }
     }
 }
