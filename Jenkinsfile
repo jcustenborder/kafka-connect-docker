@@ -16,8 +16,7 @@ node {
 
     stage('generate') {
         def pluginsUrl = new URL("https://api.hub.confluent.io/api/plugins/jcustenborder")
-        def slurper = new JsonSlurperClassic()
-        def components = slurper.parse(pluginsUrl)
+        def components = new JsonSlurperClassic().parse(pluginsUrl)
 
         components.each {
             sh "echo ${it['plugin_resource_url']}"
