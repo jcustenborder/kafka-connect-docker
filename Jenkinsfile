@@ -35,12 +35,14 @@ node {
         archiveArtifacts 'Dockerfile'
     }
 
-    stage('push') {
-        sh 'git config user.email "jenkins@custenborder.com"'
-        sh 'git config user.name "Jenkins"'
-        sh "echo `git add . && git commit -m 'Build ${BUILD_NUMBER}'`"
-        sshagent (credentials: ['50a4ec3a-9caf-43d1-bfab-6465b47292da']) {
-            sh "git push 'git@github.com:jcustenborder/kafka-connect-docker.git' ${env.BRANCH_NAME}"
-        }
+    def image
+
+    stage('build') {
+        image = docker.build('jcustenborder/kafka-connect-all')
+    }
+
+    stage('publish') {
+        image.push "${env.BUILD_NUMBER}"
+        image.push "latest"
     }
 }
