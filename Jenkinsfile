@@ -19,7 +19,13 @@ node {
         def components = new JsonSlurperClassic().parse(pluginsUrl)
 
         components.each {
-            sh "echo ${it['plugin_resource_url']}"
+            def plugin_resource_url = new URL(it['plugin_resource_url'])
+            def plugin_resource = new JsonSlurperClassic().parse(pluginsUrl)
+            def plugin_name = plugin_resource['name']
+            def plugin_owner = plugin_resource['owner']['username']
+            def plugin_version = plugin_resource['version']
+
+            sh "echo confluent-hub install --no-prompt ${plugin_owner}/${plugin_name}:${plugin_version}"
         }
 
     }
