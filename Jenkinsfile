@@ -17,6 +17,9 @@ node {
 
     sh 'mkdir build'
     dir('build') {
+        git branch: 'master', changelog: false, credentialsId: '50a4ec3a-9caf-43d1-bfab-6465b47292da', poll: false, url: 'git@github.com:jcustenborder/kafka-connect-all.git'
+        sh 'git config user.email "jenkins@custenborder.com"'
+        sh 'git config user.name "Jenkins"'
 
         stage('generate') {
             def pluginsUrl = new URL("https://api.hub.confluent.io/api/plugins/jcustenborder")
@@ -40,10 +43,7 @@ node {
         }
 
         stage('push') {
-            git branch: 'master', changelog: false, credentialsId: '50a4ec3a-9caf-43d1-bfab-6465b47292da', poll: false, url: 'git@github.com:jcustenborder/kafka-connect-all.git'
-            sh 'git config user.email "jenkins@custenborder.com"'
-            sh 'git config user.name "Jenkins"'
-            sh "git add .;git commit -m 'Build ${BUILD_NUMBER}' .;true"
+            sh "echo `git add --all . && git commit -m 'Build ${BUILD_NUMBER}' .`"
             sshagent(credentials: ['50a4ec3a-9caf-43d1-bfab-6465b47292da']) {
                 sh "git push 'git@github.com:jcustenborder/kafka-connect-all.git' master"
             }
