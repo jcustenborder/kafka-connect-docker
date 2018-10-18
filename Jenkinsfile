@@ -1,4 +1,4 @@
-import groovy.json.JsonSlurper
+import groovy.json.JsonSlurperClassic
 
 properties([
         buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10'))
@@ -16,7 +16,7 @@ node {
 
     stage('generate') {
         def pluginsUrl = new URL("https://api.hub.confluent.io/api/plugins/jcustenborder")
-        def slurper = new JsonSlurper()
+        def slurper = new JsonSlurperClassic()
         def components = slurper.parse(pluginsUrl)
 
         components.each {
