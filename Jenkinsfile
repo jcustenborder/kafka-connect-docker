@@ -1,4 +1,4 @@
-import groovy.json.JsonSlurperClassic
+import groovy.json.JsonSlurper
 
 properties([
         buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10'))
@@ -16,35 +16,11 @@ node {
 
     stage('generate') {
         def pluginsUrl = new URL("https://api.hub.confluent.io/api/plugins/jcustenborder")
-        def components = new JsonSlurperClassic().parse(pluginsUrl)
-        def baseVersion = '5.0.0'
-
-        def dockerFileText = "FROM confluentinc/cp-kafka-connect:${baseVersion}\n" +
-                'ENV CONNECT_PLUGIN_PATH="/usr/share/java,/usr/share/confluent-hub-components"\n'
+        def slurper = new JsonSlurper()
+        def components = slurper.parse(pluginsUrl)
 
         components.each {
-            def plugin_resource_url = new URL(it['plugin_resource_url'])
-            def plugin_resource = new JsonSlurperClassic().parse(plugin_resource_url)
-            def plugin_name = plugin_resource['name']
-            def plugin_owner = plugin_resource['owner']['username']
-            def plugin_version = plugin_resource['version']
-            dockerFileText += "RUN confluent-hub install --no-prompt ${plugin_owner}/${plugin_name}:${plugin_version}\n"
-        }
-
-        writeFile encoding: 'UTF-8', file: 'Dockerfile', text: dockerFileText
-        archiveArtifacts 'Dockerfile'
-    }
-
-    def image
-
-    stage('build') {
-        image = docker.build('jcustenborder/kafka-connect-all')
-    }
-
-    if (env.BRANCH_NAME == 'master') {
-        stage('publish') {
-            image.push "${env.BUILD_NUMBER}"
-            image.push "latest"
+            sh "echo ${it['plugin_resource_url']}"
         }
     }
 }
