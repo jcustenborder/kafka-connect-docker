@@ -14,6 +14,7 @@ node {
         checkout scm
     }
 
+    def readmeText = readFile encoding: 'UTF-8', file: 'README_TEMPLATE.md'
 
     sh 'mkdir build'
     dir('build') {
@@ -26,7 +27,7 @@ node {
             def components = new JsonSlurperClassic().parse(pluginsUrl)
             def baseVersion = '5.0.0'
 
-            def readmeText = readFile encoding: 'UTF-8', file: 'README_TEMPLATE.md'
+
 
             def dockerFileText = "FROM confluentinc/cp-kafka-connect:${baseVersion}\n" +
                     'ENV CONNECT_PLUGIN_PATH="/usr/share/java,/usr/share/confluent-hub-components"\n'
