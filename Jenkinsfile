@@ -26,6 +26,8 @@ node {
             def components = new JsonSlurperClassic().parse(pluginsUrl)
             def baseVersion = '5.0.0'
 
+            def readmeText = readFile encoding: 'UTF-8', file: 'README_TEMPLATE.md'
+
             def dockerFileText = "FROM confluentinc/cp-kafka-connect:${baseVersion}\n" +
                     'ENV CONNECT_PLUGIN_PATH="/usr/share/java,/usr/share/confluent-hub-components"\n'
 
@@ -35,10 +37,14 @@ node {
                 def plugin_name = plugin_resource['name']
                 def plugin_owner = plugin_resource['owner']['username']
                 def plugin_version = plugin_resource['version']
+                def plugin_source = plugin_resource['source_url']
+                def plugin_documentation = plugin_resource['documentation_url']
                 dockerFileText += "RUN confluent-hub install --no-prompt ${plugin_owner}/${plugin_name}:${plugin_version}\n"
+                readmeText+= "| ${plugin_owner}/${plugin_name} | ${plugin_version} | [Documentation](${plugin_documentation}) | [Source](${plugin_source}) |\n"
             }
 
             writeFile encoding: 'UTF-8', file: 'Dockerfile', text: dockerFileText
+            writeFile encoding: 'UTF-8', file: 'README.md', text: readmeText
             archiveArtifacts 'Dockerfile'
         }
 
