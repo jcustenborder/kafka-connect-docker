@@ -25,13 +25,13 @@ node {
         stage('generate') {
             def pluginsUrl = new URL("https://api.hub.confluent.io/api/plugins/jcustenborder")
             def components = new JsonSlurperClassic().parse(pluginsUrl)
-            def baseVersion = '5.0.0'
+            def baseVersion = '5.5.0.0'
 
-
-
-            def dockerFileText = "FROM confluentinc/cp-kafka-connect:${baseVersion}\n" +
-                    'ENV CONNECT_PLUGIN_PATH="/usr/share/java,/usr/share/confluent-hub-components"\n'
-
+            def dockerFileText = "FROM confluentinc/cp-server-connect-operator:${baseVersion}\n" +
+                    'ENV CONNECT_PLUGIN_PATH="/usr/share/java,/usr/share/confluent-hub-components"\n' + 
+                    'RUN confluent-hub install --no-prompt debezium/debezium-connector-mysql:latest\n' +
+                    'RUN confluent-hub install --no-prompt confluentinc/kafka-connect-datagen:latest\n'
+                
             components.each {
                 def plugin_resource_url = new URL(it['plugin_resource_url'])
                 def plugin_resource = new JsonSlurperClassic().parse(plugin_resource_url)
