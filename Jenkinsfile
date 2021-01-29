@@ -26,10 +26,12 @@ node {
 
     stage('push') {
         def workSpaceRoot = new File(pwd())
-        def buildRoot = new File(pwd(), "build")
+        def buildRoot = new File(workSpaceRoot, "build")
         def repositoriesFile = new File(buildRoot, "repositories.json")
-        def repoRoot = new File(pwd(), "repos")
+        def repoRoot = new File(workSpaceRoot, "repos")
 
+        sh "repositoriesFile = ${repositoriesFile}"
+        sh "find ${workSpaceRoot}"
         sh "mkdir ${repoRoot}"
 
         def repositories = new JsonSlurperClassic().parse(repositoriesFile)
