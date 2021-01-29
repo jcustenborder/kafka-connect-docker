@@ -12,7 +12,7 @@ node {
         checkout scm
     }
 
-    def dockerImage = "python:3.9-buster"
+    def dockerImage = "docker.custenborder.com/jcustenborder/jenkins-packer-ansible-python/manifests/0.0.1"
 
     stage('generate') {
         docker.image(dockerImage).inside() {

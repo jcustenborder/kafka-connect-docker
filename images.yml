@@ -5,7 +5,8 @@ images:
   kafka-connect-all:
     image: confluentinc/cp-kafka-connect
     versions:
-      6.0.0: 6.0.1-1-ubi8
+      6.0.1: 6.0.1-1-ubi8
+      6.0.0: 6.0.0-1-ubi8
     plugins:
       - owner: jcustenborder
         plugin: .+
