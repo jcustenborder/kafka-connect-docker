@@ -35,7 +35,7 @@ node {
         sh "find ${workSpaceRoot}"
         sh "mkdir ${repoRoot}"
 
-        def repositories = new JsonSlurperClassic().parse(new File("./build/repositories.json"))
+        def repositories = readJson file:"build/repositories.json"
 
         repositories.each {
             def name = it['name']
