@@ -2,7 +2,14 @@ output: build
 labels:
   maintainer: Jeremy Custenborder jcustenborder@gmail.com
 images:
-  kafka-connect-all:
+  cp-kafka-connect:
+    repository: git@github.com:jcustenborder/cp-kafka-connect.git
+    readme:
+      Introduction: "This project provides an example Dockerfile that is used to extend the
+[confluentinc/cp-kafka-connect](https://hub.docker.com/r/confluentinc/cp-kafka-connect) docker image. Creating
+a standard docker image is a common way to deploy Kafka Connect workers. Please note the content in this
+repository is generated based on a build script. Any pull requests should go against
+[jcustenborder/kafka-connect-docker](https://github.com/jcustenborder/kafka-connect-docker) instead."
     image: confluentinc/cp-kafka-connect
     versions:
       6.0.1: 6.0.1-1-ubi8
@@ -14,17 +21,39 @@ images:
         plugin: kafka-connect-reddit
       - owner: confluentinc
         plugin: kafka-connect-datagen
+      - owner: confluentinc
+        plugin: kafka-connect-activemq
+      - owner: confluentinc
+        plugin: kafka-connect-ibmmq
       - owner: debezium
         plugin: debezium-connector-mysql
     env:
       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
 
   cp-server-connect-operator:
+    repository: git@github.com:jcustenborder/cp-server-connect-operator.git
+    readme:
+      Introduction: "This project provides an example Dockerfile that is used to extend the
+    [confluentinc/cp-server-connect-operator](https://hub.docker.com/r/confluentinc/cp-server-connect-operator) docker image. Creating
+    a standard docker image is a common way to deploy Kafka Connect workers. Please note the content in this
+    repository is generated based on a build script. Any pull requests should go against
+    [jcustenborder/kafka-connect-docker](https://github.com/jcustenborder/kafka-connect-docker) instead."
     image: confluentinc/cp-server-connect-operator
     versions:
-      6.0.0: 6.0.0.0
+      6.0.0: 6.0.0.0-ubi8
+      6.0.1: 6.0.1.0-ubi8
+      5.5.3: 5.5.3.0-ubi8
+      5.5.2: 5.5.2.0-ubi8
     plugins:
       - owner: jcustenborder
         plugin: .+
       - owner: C0urante
         plugin: kafka-connect-reddit
+      - owner: confluentinc
+        plugin: kafka-connect-datagen
+      - owner: confluentinc
+        plugin: kafka-connect-activemq
+      - owner: confluentinc
+        plugin: kafka-connect-ibmmq
+      - owner: debezium
+        plugin: debezium-connector-mysql
