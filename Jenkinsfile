@@ -1,4 +1,3 @@
-import groovy.json.JsonSlurperClassic
 properties([
         buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10'))
 ])
@@ -30,12 +29,7 @@ node {
         def repositoriesFile = new File(buildRoot, "repositories.json")
         def repoRoot = new File(workSpaceRoot, "repos")
 
-        sh "echo repositoriesFile = ${repositoriesFile}"
-        sh "ls -la ${repositoriesFile}"
-        sh "find ${workSpaceRoot}"
-        sh "mkdir ${repoRoot}"
-
-        def repositories = readJSON file:"build/repositories.json"
+        def repositories = readJSON file: "build/repositories.json"
 
         repositories.each {
             def name = it['name']
@@ -45,12 +39,23 @@ node {
             def branchBuild = new File(workSpaceRoot, path)
             def branch = it['branch']
             def branchDirectory = new File(imageDirectory, branch)
-            sh "mkdir ${branchDirectory}"
             def repositoryUrl = it['repository_url']
-            sh "copy -rv ${branchBuild}/ ${branchDirectory}/"
+            sh "mkdir ${branchDirectory}"
+
+            sh "echo processing ${name} - ${branch}"
+            dir(branchDirectory) {
+                git branch: 'master', changelog: false, credentialsId: '50a4ec3a-9caf-43d1-bfab-6465b47292da', poll: false, url: repositoryUrl
+                sh 'git config user.email "jenkins@custenborder.com"'
+                sh 'git config user.name "Jenkins"'
+                sh "cp -rv ${branchBuild}/ ."
+                sh "echo `git add --all . && git commit -m 'Build ${BUILD_NUMBER}' .`"
+                sshagent(credentials: ['50a4ec3a-9caf-43d1-bfab-6465b47292da']) {
+                    sh "git push '${repositoryUrl}' '${branch}'"
+                }
+            }
+
+
         }
-
-
 
 
 //        sh "mkdir build"
