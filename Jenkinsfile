@@ -46,7 +46,7 @@ node {
                     git branch: branch, changelog: false, credentialsId: '50a4ec3a-9caf-43d1-bfab-6465b47292da', poll: false, url: repositoryUrl
                     sh 'git config user.email "jenkins@custenborder.com"'
                     sh 'git config user.name "Jenkins"'
-                    sh "cp -rv ${branchBuild}/ ."
+                    sh "cp -rv ${branchBuild}/* ."
                     sh "echo `git add --all . && git commit -m 'Build ${BUILD_NUMBER}' .`"
                     sh "git push '${repositoryUrl}' '${branch}'"
                 }
