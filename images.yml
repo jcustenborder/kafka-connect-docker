@@ -1,0 +1,29 @@
+output: build
+labels:
+  maintainer: Jeremy Custenborder jcustenborder@gmail.com
+images:
+  kafka-connect-all:
+    image: confluentinc/cp-kafka-connect
+    versions:
+      6.0.0: 6.0.1-1-ubi8
+    plugins:
+      - owner: jcustenborder
+        plugin: .+
+      - owner: C0urante
+        plugin: kafka-connect-reddit
+      - owner: confluentinc
+        plugin: kafka-connect-datagen
+      - owner: debezium
+        plugin: debezium-connector-mysql
+    env:
+      CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
+
+  cp-server-connect-operator:
+    image: confluentinc/cp-server-connect-operator
+    versions:
+      6.0.0: 6.0.0.0
+    plugins:
+      - owner: jcustenborder
+        plugin: .+
+      - owner: C0urante
+        plugin: kafka-connect-reddit
