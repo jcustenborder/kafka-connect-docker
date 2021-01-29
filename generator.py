@@ -53,6 +53,7 @@ repositories_file_path = path.join(output_root, 'repositories.json')
 
 for image, imageSettings in settings['images'].items():
     print(f"Processing {image}")
+    github_url = imageSettings['github_url']
     image_root = path.join(output_root, image)
     from_image = imageSettings['image']
     if not path.exists(image_root):
@@ -76,7 +77,7 @@ for image, imageSettings in settings['images'].items():
         print("| Image | Version | Branch |", file=main_readme_file)
         print("|-------|---------|--------|", file=main_readme_file)
         for image_version, base_image_version in imageSettings['versions'].items():
-            print(f"| {from_image} | {base_image_version} | [{image_version}](tree/{image_version}) |", file=main_readme_file)
+            print(f"| {from_image} | {base_image_version} | [{image_version}]({github_url}/tree/{image_version}) |", file=main_readme_file)
 
     repositories.append({
         'name': image,

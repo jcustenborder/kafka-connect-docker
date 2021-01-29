@@ -3,6 +3,7 @@ labels:
   maintainer: Jeremy Custenborder jcustenborder@gmail.com
 images:
   cp-kafka-connect:
+    github_url: https://github.com/jcustenborder/cp-kafka-connect
     repository: git@github.com:jcustenborder/cp-kafka-connect.git
     readme:
       Introduction: "This project provides an example Dockerfile that is used to extend the
@@ -31,6 +32,7 @@ repository is generated based on a build script. Any pull requests should go aga
       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
 
   cp-server-connect-operator:
+    github_url: https://github.com/jcustenborder/cp-server-connect-operator
     repository: git@github.com:jcustenborder/cp-server-connect-operator.git
     readme:
       Introduction: "This project provides an example Dockerfile that is used to extend the
