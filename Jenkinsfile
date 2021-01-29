@@ -34,13 +34,12 @@ node {
         repositories.each {
             def name = it['name']
             def imageDirectory = new File(repoRoot, name)
-            sh "mkdir ${imageDirectory}"
             def path = it['path']
             def branchBuild = new File(workSpaceRoot, path)
             def branch = it['branch']
             def branchDirectory = new File(imageDirectory, branch)
             def repositoryUrl = it['repository_url']
-            sh "mkdir ${branchDirectory}"
+            sh "mkdir -p ${branchDirectory}"
 
             sh "echo processing ${name} - ${branch}"
             dir(branchDirectory) {
@@ -53,27 +52,6 @@ node {
                     sh "git push '${repositoryUrl}' '${branch}'"
                 }
             }
-
-
         }
-
-
-//        sh "mkdir build"
-//        dir('build') {
-//            git branch: 'master', changelog: false, credentialsId: '50a4ec3a-9caf-43d1-bfab-6465b47292da', poll: false, url: 'git@github.com:jcustenborder/kafka-connect-all.git'
-//            sh 'git config user.email "jenkins@custenborder.com"'
-//            sh 'git config user.name "Jenkins"'
-//        }
-
-
     }
-
-//    stage('push') {
-//        dir('build') {
-//            sh "echo `git add --all . && git commit -m 'Build ${BUILD_NUMBER}' .`"
-//            sshagent(credentials: ['50a4ec3a-9caf-43d1-bfab-6465b47292da']) {
-//                sh "git push 'git@github.com:jcustenborder/kafka-connect-all.git' master"
-//            }
-//        }
-//    }
 }
