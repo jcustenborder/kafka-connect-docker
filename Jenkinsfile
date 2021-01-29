@@ -1,3 +1,4 @@
+import groovy.json.JsonSlurperClassic
 properties([
         buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10'))
 ])
