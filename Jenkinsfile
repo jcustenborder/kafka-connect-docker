@@ -15,7 +15,7 @@ node {
     def dockerImage = "docker.custenborder.com/jcustenborder/jenkins-packer-ansible-python/manifests/0.0.1"
 
     stage('generate') {
-        withDockerRegistry(credentialsId: 'custenborder_docker', url: 'docker.custenborder.com') {
+        withDockerRegistry(credentialsId: 'custenborder_docker', url: 'https://docker.custenborder.com') {
             docker.image(dockerImage).inside() {
                 sh "pip install -r requirements.txt"
                 sh "python generator.py"
