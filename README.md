@@ -1,15 +1,10 @@
-| Project | Version | Documentation | Source |
-|---------|---------|---------------|--------|
-| jcustenborder/kafka-connect-memcached | 0.1.0.6 | [Documentation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-memcached/connectors.html) | [Source](https://github.com/jcustenborder/kafka-connect-memcached) |
-| jcustenborder/kafka-connect-redis | 0.0.2.2 | [Documentation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-redis/connectors.html) | [Source](https://github.com/jcustenborder/kafka-connect-redis) |
-| jcustenborder/kafka-connect-simulator | 0.1.118 | [Documentation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-simulator/connectors.html) | [Source](https://github.com/jcustenborder/kafka-connect-simulator) |
-| jcustenborder/kafka-connect-snmp | 0.0.1.9 | [Documentation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-snmp/connectors.html) | [Source](https://github.com/jcustenborder/kafka-connect-snmp) |
-| jcustenborder/kafka-connect-solr | 0.1.24 | [Documentation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-solr/connectors.html) | [Source](https://github.com/jcustenborder/kafka-connect-solr) |
-| jcustenborder/kafka-connect-splunk | 0.2.0.28 | [Documentation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-splunk/connectors.html) | [Source](https://github.com/jcustenborder/kafka-connect-splunk) |
-| jcustenborder/kafka-connect-spooldir | 1.0.31 | [Documentation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-spooldir/connectors.html) | [Source](https://github.com/jcustenborder/kafka-connect-spooldir) |
-| jcustenborder/kafka-connect-transform-archive | 0.1.0.3 | [Documentation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-transform-archive/transformations.html) | [Source](https://github.com/jcustenborder/kafka-connect-transform-archive) |
-| jcustenborder/kafka-connect-transform-cef | 0.1.0.7 | [Documentation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-transform-cef/transformations.html) | [Source](https://github.com/jcustenborder/kafka-connect-transform-cef) |
-| jcustenborder/kafka-connect-transform-common | 0.1.0.14 | [Documentation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-transform-common/transformations.html) | [Source](https://github.com/jcustenborder/kafka-connect-transform-common) |
-| jcustenborder/kafka-connect-transform-maxmind | 0.1.0.7 | [Documentation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-transform-maxmind/transformations.html) | [Source](https://github.com/jcustenborder/kafka-connect-transform-maxmind) |
-| jcustenborder/kafka-connect-transform-xml | 0.1.0.4 | [Documentation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-transform-xml/transformations.html) | [Source](https://github.com/jcustenborder/kafka-connect-transform-xml) |
-| jcustenborder/kafka-connect-twitter | 0.2.26 | [Documentation](https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-twitter/connectors.html) | [Source](https://github.com/jcustenborder/kafka-connect-twitter) |
+# Introduction
+
+This project is way for me to create docker images of the containers that I use the most from the 
+[Confluent Hub](https://www.confluent.io/hub/). The scripts here are used to connect to the 
+Confluent Hub API and find connectors that are specified in `images.yml`. This isn't necessarily 
+designed to be a production workflow. This repository is mainly to make my life easier by keeping 
+connector images consistent across multiple versions of the Confluent images. Take a look at 
+my [cp-kafka-connect](https://github.com/jcustenborder/cp-kafka-connect) and 
+[cp-server-connect-operator](https://github.com/jcustenborder/cp-server-connect-operator) images 
+for examples of how to maintain images with your own selection of connectors from the Confluent Hub.
