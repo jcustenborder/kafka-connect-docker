@@ -56,6 +56,33 @@ for image, imageSettings in settings['images'].items():
     image_root = path.join(output_root, image)
     from_image = imageSettings['image']
 
+    main_root = path.join(image_root, 'main')
+    if not path.exists(main_root):
+        os.mkdir(main_root)
+
+    main_readme_path = path.join(main_root, "README.md")
+
+    with open(main_readme_path, "+w") as main_readme_file:
+        if 'readme' in imageSettings:
+            for header, content in imageSettings['readme'].items():
+                print(f"# {header}\n", file=main_readme_file)
+                print(f"{content}", file=main_readme_file)
+
+        print("", file=main_readme_file)
+        print("The following tags of this image are available. Tags are based on the image they are based from.", file=main_readme_file)
+        print("", file=main_readme_file)
+        print("| Image | Version | Branch |", file=main_readme_file)
+        print("|-------|---------|--------|", file=main_readme_file)
+        for image_version, base_image_version in imageSettings['versions'].items():
+            print(f"| {from_image} | {base_image_version} | [{image_version}](tree/{image_version}) |", file=main_readme_file)
+
+    repositories.append({
+        'name': image,
+        'path': main_root,
+        'branch': 'main',
+        'repository_url': imageSettings['repository']
+    })
+
     if not path.exists(image_root):
         os.mkdir(image_root)
 
