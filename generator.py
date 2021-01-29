@@ -128,12 +128,20 @@ for image, imageSettings in settings['images'].items():
                 for key, value in imageSettings['env'].items():
                     print(f"ENV {key}={value}", file=dockerFile)
 
+            if 'install_user' in imageSettings:
+                if not 'run_user' in imageSettings:
+                    raise Exception(f'run_user must be specified when install_user is specified. {image}')
+                print(f"USER {imageSettings['install_user']}", file=dockerFile)
+
             for download_plugin, plugin_info in sorted(download_plugins.items()):
                 print(
                     f"RUN confluent-hub install --no-prompt {download_plugin}:{plugin_info['version']}",
                     file=dockerFile)
 
-        with open(readme_file_path, "+w") as readmeFile:
+            if 'run_user' in imageSettings:
+                print(f"USER {imageSettings['run_user']}", file=dockerFile)
+
+    with open(readme_file_path, "+w") as readmeFile:
             if 'readme' in imageSettings:
                 for header, content in imageSettings['readme'].items():
                     print(f"# {header}\n", file=readmeFile)

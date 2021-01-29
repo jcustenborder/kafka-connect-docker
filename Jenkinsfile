@@ -49,10 +49,11 @@ node {
                     sh "cp -rv ${branchBuild}/* ."
                     sh "echo `git add --all . && git commit -m 'Build ${BUILD_NUMBER}' .`"
 //                    sh "git tag ${branch}"
+                    sh "git push '${repositoryUrl}' '${branch}'"
                     if(!"main".equals(branch)) {
                         sh "git tag ${branch}-${BUILD_NUMBER}"
+                        sh "git push --tags '${repositoryUrl}'"
                     }
-                    sh "git push '${repositoryUrl}' '${branch}'"
                 }
             }
         }
