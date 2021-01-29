@@ -30,7 +30,7 @@ node {
         def repositoriesFile = new File(buildRoot, "repositories.json")
         def repoRoot = new File(workSpaceRoot, "repos")
 
-        sh "repositoriesFile = ${repositoriesFile}"
+        sh "echo repositoriesFile = ${repositoriesFile}"
         sh "find ${workSpaceRoot}"
         sh "mkdir ${repoRoot}"
 
