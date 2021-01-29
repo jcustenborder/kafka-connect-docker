@@ -55,6 +55,8 @@ for image, imageSettings in settings['images'].items():
     print(f"Processing {image}")
     image_root = path.join(output_root, image)
     from_image = imageSettings['image']
+    if not path.exists(image_root):
+        os.mkdir(image_root)
 
     main_root = path.join(image_root, 'main')
     if not path.exists(main_root):
@@ -83,8 +85,7 @@ for image, imageSettings in settings['images'].items():
         'repository_url': imageSettings['repository']
     })
 
-    if not path.exists(image_root):
-        os.mkdir(image_root)
+
 
     for image_version, base_image_version in imageSettings['versions'].items():
         version_root = path.join(image_root, image_version)
