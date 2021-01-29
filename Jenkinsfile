@@ -30,25 +30,24 @@ node {
         def repoRoot = new File(workSpaceRoot, "repos")
 
         def repositories = readJSON file: "build/repositories.json"
+        sshagent(credentials: ['50a4ec3a-9caf-43d1-bfab-6465b47292da']) {
+            repositories.each {
+                def name = it['name']
+                def imageDirectory = new File(repoRoot, name)
+                def path = it['path']
+                def branchBuild = new File(workSpaceRoot, path)
+                def branch = it['branch']
+                def branchDirectory = new File(imageDirectory, branch)
+                def repositoryUrl = it['repository_url']
+                sh "mkdir -p ${branchDirectory}"
 
-        repositories.each {
-            def name = it['name']
-            def imageDirectory = new File(repoRoot, name)
-            def path = it['path']
-            def branchBuild = new File(workSpaceRoot, path)
-            def branch = it['branch']
-            def branchDirectory = new File(imageDirectory, branch)
-            def repositoryUrl = it['repository_url']
-            sh "mkdir -p ${branchDirectory}"
-
-            sh "echo processing ${name} - ${branch}"
-            dir("${branchDirectory}") {
-                git branch: branch, changelog: false, credentialsId: '50a4ec3a-9caf-43d1-bfab-6465b47292da', poll: false, url: repositoryUrl
-                sh 'git config user.email "jenkins@custenborder.com"'
-                sh 'git config user.name "Jenkins"'
-                sh "cp -rv ${branchBuild}/ ."
-                sh "echo `git add --all . && git commit -m 'Build ${BUILD_NUMBER}' .`"
-                sshagent(credentials: ['50a4ec3a-9caf-43d1-bfab-6465b47292da']) {
+                sh "echo processing ${name} - ${branch}"
+                dir("${branchDirectory}") {
+                    git branch: branch, changelog: false, credentialsId: '50a4ec3a-9caf-43d1-bfab-6465b47292da', poll: false, url: repositoryUrl
+                    sh 'git config user.email "jenkins@custenborder.com"'
+                    sh 'git config user.name "Jenkins"'
+                    sh "cp -rv ${branchBuild}/ ."
+                    sh "echo `git add --all . && git commit -m 'Build ${BUILD_NUMBER}' .`"
                     sh "git push '${repositoryUrl}' '${branch}'"
                 }
             }
