@@ -47,6 +47,9 @@ node {
                     sh 'git config user.email "jenkins@custenborder.com"'
                     sh 'git config user.name "Jenkins"'
                     sh "cp -rv ${branchBuild}/* ."
+                    if(fileExists(branch)) {
+                        sh "rm -rf '${branch}'"
+                    }
                     sh "echo `git add --all . && git commit -m 'Build ${BUILD_NUMBER}' .`"
 //                    sh "git tag ${branch}"
                     sh "git push '${repositoryUrl}' '${branch}'"
