@@ -50,7 +50,7 @@ node {
                    cloneBranch = 'main'     
                 }
                     
-                sh "git clone -b ${branch} ${repositoryUrl} ${branchDirectory}"     
+                sh "git clone -b ${cloneBranch} ${repositoryUrl} ${branchDirectory}"     
                 dir("${branchDirectory}") {
                     sh 'git config user.email "jenkins@custenborder.com"'
                     sh 'git config user.name "Jenkins"'
