@@ -48,6 +48,7 @@ node {
                    cloneBranch = branch
                    createBranch = false
                 } else {
+                  sh "git branch -r"      
                   try {
                      sh "git branch -r | grep '${branch}'"
                      cloneBranch = branch
