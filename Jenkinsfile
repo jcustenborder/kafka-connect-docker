@@ -42,6 +42,14 @@ node {
                 sh "mkdir -p ${branchDirectory}"
 
                 sh "echo processing ${name} - ${branch}"
+                def cloneBranch
+                try {
+                   sh "git branch -r | grep '${branch}'"
+                   cloneBranch = branch     
+                } catch(Exception ex) {
+                   cloneBranch = 'main'     
+                }
+                    
                 sh "git clone -b ${branch} ${repositoryUrl} ${branchDirectory}"     
                 dir("${branchDirectory}") {
                     sh 'git config user.email "jenkins@custenborder.com"'
