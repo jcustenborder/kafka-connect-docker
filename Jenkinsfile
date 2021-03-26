@@ -48,9 +48,8 @@ node {
                    cloneBranch = branch
                    createBranch = false
                 } else {
-                  sh "git branch -r"      
                   try {
-                     sh "git branch -r | grep '${branch}'"
+                     sh "git ls-remote --exit-code --heads ${repositoryUrl} ${branch}"
                      cloneBranch = branch
                      createBranch = false
                   } catch(Exception ex) {
