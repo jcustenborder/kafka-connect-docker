@@ -42,8 +42,8 @@ node {
                 sh "mkdir -p ${branchDirectory}"
 
                 sh "echo processing ${name} - ${branch}"
+                sh "git clone -b ${branch} ${repositoryUrl} ${branchDirectory}"     
                 dir("${branchDirectory}") {
-                    git branch: branch, changelog: false, credentialsId: '50a4ec3a-9caf-43d1-bfab-6465b47292da', poll: false, url: repositoryUrl
                     sh 'git config user.email "jenkins@custenborder.com"'
                     sh 'git config user.name "Jenkins"'
                     sh "cp -rv ${branchBuild}/* ."
