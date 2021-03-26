@@ -44,13 +44,18 @@ node {
                 sh "echo processing ${name} - ${branch}"
                 def cloneBranch
                 def createBranch
-                try {
-                   sh "git branch -r | grep '${branch}'"
+                if('main' == branch) {   
                    cloneBranch = branch
                    createBranch = false
-                } catch(Exception ex) {
-                   cloneBranch = 'main'
-                   createBranch = true
+                } else {
+                  try {
+                     sh "git branch -r | grep '${branch}'"
+                     cloneBranch = branch
+                     createBranch = false
+                  } catch(Exception ex) {
+                     cloneBranch = 'main'
+                     createBranch = true
+                  }
                 }
                     
                 sh "git clone -b ${cloneBranch} ${repositoryUrl} ${branchDirectory}"     
