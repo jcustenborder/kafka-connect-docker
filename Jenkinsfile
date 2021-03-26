@@ -43,15 +43,22 @@ node {
 
                 sh "echo processing ${name} - ${branch}"
                 def cloneBranch
+                def createBranch
                 try {
                    sh "git branch -r | grep '${branch}'"
-                   cloneBranch = branch     
+                   cloneBranch = branch
+                   createBranch = false
                 } catch(Exception ex) {
-                   cloneBranch = 'main'     
+                   cloneBranch = 'main'
+                   createBranch = true
                 }
                     
                 sh "git clone -b ${cloneBranch} ${repositoryUrl} ${branchDirectory}"     
                 dir("${branchDirectory}") {
+                    if(createBranch) {   
+                        sh "git branch ${branch}"    
+                        sh "git checkout ${branch}"
+                    }
                     sh 'git config user.email "jenkins@custenborder.com"'
                     sh 'git config user.name "Jenkins"'
                     sh "cp -rv ${branchBuild}/* ."
