@@ -34,6 +34,8 @@ repository is generated based on a build script. Any pull requests should go aga
         plugin: kafka-connect-activemq
       - owner: confluentinc
         plugin: kafka-connect-ibmmq
+      - owner: confluentinc
+        plugin: kafka-connect-jdbc
       - owner: debezium
         plugin: debezium-connector-mysql
     env:
@@ -69,5 +71,7 @@ repository is generated based on a build script. Any pull requests should go aga
         plugin: kafka-connect-activemq
       - owner: confluentinc
         plugin: kafka-connect-ibmmq
+      - owner: confluentinc
+        plugin: kafka-connect-jdbc
       - owner: debezium
         plugin: debezium-connector-mysql
