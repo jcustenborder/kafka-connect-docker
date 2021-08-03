@@ -13,6 +13,8 @@ repository is generated based on a build script. Any pull requests should go aga
 [jcustenborder/kafka-connect-docker](https://github.com/jcustenborder/kafka-connect-docker) instead."
     image: confluentinc/cp-kafka-connect
     versions:
+      6.1.2: 6.1.2-2-ubi8
+      6.1.1: 6.1.1-2-ubi8
       6.1.0: 6.1.0-1-ubi8
       6.0.1: 6.0.1-1-ubi8
       6.0.0: 6.0.0-1-ubi8
@@ -54,6 +56,8 @@ repository is generated based on a build script. Any pull requests should go aga
     [jcustenborder/kafka-connect-docker](https://github.com/jcustenborder/kafka-connect-docker) instead."
     image: confluentinc/cp-server-connect-operator
     versions:
+      6.1.2.1: 6.1.2.1
+      6.1.0: 6.1.1.0
       6.1.0: 6.1.0.0
       6.0.1: 6.0.1.0
       6.0.0: 6.0.0.0
