@@ -136,7 +136,7 @@ pipe.majorVersion = {majorVersion}
 pipe.minorVersion = {minorVersion}
 pipe.patchVersion = {patchVersion}
 pipe.repositories = [
-    ['credential': 'custenborder_docker', 'registry': 'https://docker.custenborder.com', 'repository': 'jcustenborder']
+    ['credential': 'hub.docker.com', 'registry': 'https://registry.hub.docker.com', 'repository': 'jcustenborder']
 ]
 pipe.execute()
 """, file=jenkinsFile)
