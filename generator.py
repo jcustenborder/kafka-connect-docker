@@ -103,6 +103,7 @@ for image, imageSettings in settings['images'].items():
 
         docker_file_path = path.join(version_root, "Dockerfile")
         readme_file_path = path.join(version_root, "README.md")
+        jenkins_file_path = path.join(version_root, "Jenkinsfile")
 
         download_plugins = {}
         if 'plugins' in imageSettings:
@@ -116,6 +117,29 @@ for image, imageSettings in settings['images'].items():
                     if re.match(plugin, plugin_name):
                         plugin_info = api_plugin(owner, plugin_name)
                         download_plugins[f"{owner}/{plugin_name}"] = plugin_info
+
+        regex = re.compile("^(\d+)\.(\d+)\.(\d+)")
+        match = regex.match(image_version)
+        if not match:
+            raise f"Could not match {image_version}"
+        majorVersion = match.group(1)
+        minorVersion = match.group(2)
+        patchVersion = match.group(3)
+
+        with open(jenkins_file_path, "+w") as jenkinsFile:
+            print(f"""#!groovy
+@Library('jenkins-pipeline') import com.github.jcustenborder.jenkins.pipeline.ConnectDockerPipeline
+
+def pipe = new DockerPipeline()
+pipe.imageName = '{image}'
+pipe.majorVersion = {majorVersion}
+pipe.minorVersion = {minorVersion}
+pipe.patchVersion = {patchVersion}
+pipe.repositories = [
+    ['credential': 'custenborder_docker', 'registry': 'https://docker.custenborder.com', 'repository': 'jcustenborder']
+]
+pipe.execute()
+""", file=jenkinsFile)
 
         with open(docker_file_path, "+w") as dockerFile:
             print(f"FROM {from_image}:{base_image_version}", file=dockerFile)
