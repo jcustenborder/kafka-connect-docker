@@ -130,7 +130,7 @@ for image, imageSettings in settings['images'].items():
             print(f"""#!groovy
 @Library('jenkins-pipeline') import com.github.jcustenborder.jenkins.pipeline.ConnectDockerPipeline
 
-def pipe = new DockerPipeline()
+def pipe = new ConnectDockerPipeline()
 pipe.imageName = '{image}'
 pipe.majorVersion = {majorVersion}
 pipe.minorVersion = {minorVersion}
