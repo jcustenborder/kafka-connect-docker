@@ -12,7 +12,7 @@ node {
         checkout scm
     }
 
-    def dockerImage = "docker.custenborder.com/jcustenborder/jenkins-packer-ansible-python:0.0.1"
+    def dockerImage = "docker.custenborder.com/jcustenborder/jenkins-packer-ansible-python:0.0.2"
 
     stage('generate') {
         withDockerRegistry(credentialsId: 'custenborder_docker', url: 'https://docker.custenborder.com') {
