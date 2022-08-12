@@ -40,7 +40,7 @@ repository is generated based on a build script. Any pull requests should go aga
       - owner: confluentinc
         plugin: kafka-connect-jdbc
       - owner: debezium
-        plugin: debezium-connector-mysql
+        plugin: .+
     env:
       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
 
@@ -79,5 +79,7 @@ repository is generated based on a build script. Any pull requests should go aga
         plugin: kafka-connect-ibmmq
       - owner: confluentinc
         plugin: kafka-connect-jdbc
+      - owner: debezium
+        plugin: debezium-connector-mysql
       - owner: debezium
         plugin: debezium-connector-mysql
